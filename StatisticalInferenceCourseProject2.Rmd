@@ -1,0 +1,97 @@
+---
+title: "Statistical Inference Course Project"
+author: "Tonya MacDonald"
+output:
+  html_document: default
+---
+
+### Purpose
+
+Analyze Tooth Growth Dataset. 
+
+### Libraries
+
+```{r DataLoading}
+library("data.table")
+library("ggplot2")
+#library(dplyr)
+#data(ToothGrowth)
+```
+
+### Basic summary of the data
+
+```{r}
+# show what column names are
+names(ToothGrowth)
+```
+
+```{r}
+# show a bit of the data
+head(ToothGrowth)
+```
+
+```{r}
+# show summary of the data
+summary(ToothGrowth)
+```
+
+### Compare tooth growth
+
+```{r}
+# make dose a factor
+ToothGrowth$dose<-as.factor(ToothGrowth$dose)
+
+# show box plot
+ggplot(aes(x=dose, y=len), data=ToothGrowth) + 
+  geom_boxplot(aes(fill=dose)) + 
+  xlab("Dose") + 
+  ylab("Length") + 
+  facet_grid(~ supp) + 
+  ggtitle("Tooth Growth")
+```
+
+```{r}
+# run t-test
+t.test(len~supp,data=ToothGrowth)
+```
+
+The p-value is ~ 0.06
+
+---
+
+```{r}
+# run t-test using dose amounts 0.5 and 1.0
+ToothGrowth_sub <- subset(ToothGrowth, ToothGrowth$dose %in% c(1.0,0.5))
+t.test(len~dose,data=ToothGrowth_sub)
+```
+
+The p-value is ~ 0, and the confidence interval does not include 0
+
+---
+
+```{r}
+# run t-test using dose amounts 1.0 and 2.0
+ToothGrowth_sub <- subset(ToothGrowth, ToothGrowth$dose %in% c(2.0,1.0))
+t.test(len~dose,data=ToothGrowth_sub)
+```
+
+The p-value is ~ 0, and the confidence interval does not include 0
+
+---
+
+```{r}
+# run t-test using dose amounts 0.5 and 2.0
+ToothGrowth_sub <- subset(ToothGrowth, ToothGrowth$dose %in% c(0.5,2.0))
+t.test(len~dose,data=ToothGrowth_sub)
+```
+
+The p-value is ~ 0, and the confidence interval does not include 0
+
+---
+
+### Summary
+
+For each of the two sample t-tests, the p-value is ~ 0, and the confidence interval does not cross over 0.  Also the means increase with dose.
+
+We can conclude that as the dose increases, then the tooth growth increases.  Delivery method does not have an effect on the tooth growth.
+

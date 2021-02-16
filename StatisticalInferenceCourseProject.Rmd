@@ -1,7 +1,9 @@
 ---
 title: "Statistical Inference Course Project"
 author: "Tonya MacDonald"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ### Purpose
