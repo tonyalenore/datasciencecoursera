@@ -2,7 +2,9 @@
 title: "Reproducible Research Project 1"
 author: "Tonya MacDonald"
 date: "2/15/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ### Load Data

@@ -1,0 +1,522 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Reproducible Research Project 1},
+  pdfauthor={Tonya MacDonald},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Reproducible Research Project 1}
+\author{Tonya MacDonald}
+\date{2/15/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{load-data}{%
+\subsubsection{Load Data}\label{load-data}}
+
+Download and unzip data, then load into data table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"data.table"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\NormalTok{fileUrl }\OtherTok{\textless{}{-}} \StringTok{"https://d396qusza40orc.cloudfront.net/repdata\%2Fdata\%2Factivity.zip"}
+
+\FunctionTok{download.file}\NormalTok{(fileUrl, }\AttributeTok{destfile =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{getwd}\NormalTok{(), }\StringTok{\textquotesingle{}/repdata\%2Fdata\%2Factivity.zip\textquotesingle{}}\NormalTok{), }\AttributeTok{method =} \StringTok{"curl"}\NormalTok{)}
+
+\FunctionTok{unzip}\NormalTok{(}\StringTok{"repdata\%2Fdata\%2Factivity.zip"}\NormalTok{,}\AttributeTok{exdir =} \StringTok{"data"}\NormalTok{)}
+
+\NormalTok{activitydata }\OtherTok{\textless{}{-}}\NormalTok{ data.table}\SpecialCharTok{::}\FunctionTok{fread}\NormalTok{(}\AttributeTok{input =} \StringTok{"data/activity.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{what-is-mean-total-number-of-steps-taken-per-day}{%
+\subsection{What is mean total number of steps taken per
+day?}\label{what-is-mean-total-number-of-steps-taken-per-day}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Calculate the total number of steps taken per day
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# sum the total steps}
+\NormalTok{totalsteps }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(}\FunctionTok{setNames}\NormalTok{(}\FunctionTok{aggregate}\NormalTok{(activitydata}\SpecialCharTok{$}\NormalTok{steps, }\AttributeTok{by=}\FunctionTok{list}\NormalTok{(activitydata}\SpecialCharTok{$}\NormalTok{date), }\AttributeTok{FUN=}\NormalTok{sum), }\FunctionTok{c}\NormalTok{(}\StringTok{"date"}\NormalTok{,}\StringTok{"steps"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# take a look at the first 10 rows}
+\FunctionTok{head}\NormalTok{(totalsteps, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           date steps
+##  1: 2012-10-01    NA
+##  2: 2012-10-02   126
+##  3: 2012-10-03 11352
+##  4: 2012-10-04 12116
+##  5: 2012-10-05 13294
+##  6: 2012-10-06 15420
+##  7: 2012-10-07 11015
+##  8: 2012-10-08    NA
+##  9: 2012-10-09 12811
+## 10: 2012-10-10  9900
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Make a histogram of the total number of steps per day
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# histogram}
+\FunctionTok{ggplot}\NormalTok{(totalsteps, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ steps)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"pink"}\NormalTok{, }\AttributeTok{binwidth =} \DecValTok{1000}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Steps per Day"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Steps"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 8 rows containing non-finite values (stat_bin).
+\end{verbatim}
+
+\includegraphics{Project1_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Calculate the mean and median of the total number of steps taken per
+  day
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# average steps}
+\NormalTok{meansteps }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(totalsteps}\SpecialCharTok{$}\NormalTok{steps, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{meansteps}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10766.19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# median step value}
+\NormalTok{mediansteps }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(totalsteps}\SpecialCharTok{$}\NormalTok{steps, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{mediansteps}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10765
+\end{verbatim}
+
+\hypertarget{what-is-the-average-daily-activity-pattern}{%
+\subsection{What is the average daily activity
+pattern?}\label{what-is-the-average-daily-activity-pattern}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make a time series plot (i.e.~𝚝𝚢𝚙𝚎 = ``𝚕'') of the 5-minute interval
+  (x-axis) and the average number of steps taken, averaged across all
+  days (y-axis)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# find all the intervals}
+\NormalTok{intervals }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(}\FunctionTok{setNames}\NormalTok{(}\FunctionTok{aggregate}\NormalTok{(activitydata}\SpecialCharTok{$}\NormalTok{steps, }\AttributeTok{by=}\FunctionTok{list}\NormalTok{(activitydata}\SpecialCharTok{$}\NormalTok{interval), }\AttributeTok{FUN=}\NormalTok{sum, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"interval"}\NormalTok{,}\StringTok{"steps"}\NormalTok{)))}
+
+\CommentTok{\# show the data}
+\FunctionTok{head}\NormalTok{(intervals,}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     interval steps
+##  1:        0    91
+##  2:        5    18
+##  3:       10     7
+##  4:       15     8
+##  5:       20     4
+##  6:       25   111
+##  7:       30    28
+##  8:       35    46
+##  9:       40     0
+## 10:       45    78
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# line chart}
+\FunctionTok{ggplot}\NormalTok{(intervals, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ interval , }\AttributeTok{y =}\NormalTok{ steps)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"pink"}\NormalTok{, }\AttributeTok{size=}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Average Steps per Day"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Interval"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Average Steps per Day"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Which 5-minute interval, on average across all the days in the
+  dataset, contains the maximum number of steps?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# find the interval with the max steps}
+\NormalTok{intervals[steps }\SpecialCharTok{==} \FunctionTok{max}\NormalTok{(steps)]}\SpecialCharTok{$}\NormalTok{interval}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 835
+\end{verbatim}
+
+\hypertarget{imputing-missing-values}{%
+\subsection{Imputing missing values}\label{imputing-missing-values}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Calculate and report the total number of missing values in the data
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#number of rows with NAs}
+\FunctionTok{nrow}\NormalTok{(activitydata[}\FunctionTok{is.na}\NormalTok{(steps),])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2304
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \& 3. Devise a strategy for filling in all of the missing values in
+  the dataset. The strategy does not need to be sophisticated. For
+  example, you could use the mean/median for that day, or the mean for
+  that 5-minute interval, etc. Create a new dataset that is equal to the
+  original dataset but with the missing data filled in.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# replace NAs with the medin}
+\NormalTok{activitydata[}\FunctionTok{is.na}\NormalTok{(steps), }\StringTok{"steps"}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ activitydata[, }\FunctionTok{c}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(.SD, median, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)), .SDcols }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"steps"}\NormalTok{)]}
+
+\CommentTok{\# verify no more NAs}
+\FunctionTok{nrow}\NormalTok{(activitydata[}\FunctionTok{is.na}\NormalTok{(steps),])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Make a histogram of the total number of steps taken each day and
+  calculate and report the mean and median total number of steps taken
+  per day. Do these values differ from the estimates from the first part
+  of the assignment? What is the impact of imputing missing data on the
+  estimates of the total daily number of steps?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# sum total steps again, this time with the NAs replaced with the median}
+\NormalTok{totalsteps2 }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(}\FunctionTok{setNames}\NormalTok{(}\FunctionTok{aggregate}\NormalTok{(activitydata}\SpecialCharTok{$}\NormalTok{steps, }\AttributeTok{by=}\FunctionTok{list}\NormalTok{(activitydata}\SpecialCharTok{$}\NormalTok{date), }\AttributeTok{FUN=}\NormalTok{sum), }\FunctionTok{c}\NormalTok{(}\StringTok{"date"}\NormalTok{,}\StringTok{"steps"}\NormalTok{)))}
+
+\CommentTok{\# view data}
+\FunctionTok{head}\NormalTok{(totalsteps2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          date steps
+## 1: 2012-10-01     0
+## 2: 2012-10-02   126
+## 3: 2012-10-03 11352
+## 4: 2012-10-04 12116
+## 5: 2012-10-05 13294
+## 6: 2012-10-06 15420
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# average the total steps with NAs removed}
+\NormalTok{meansteps2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(totalsteps2}\SpecialCharTok{$}\NormalTok{steps)}
+\NormalTok{meansteps2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 9354.23
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# median should still be the same}
+\NormalTok{mediansteps2 }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(totalsteps2}\SpecialCharTok{$}\NormalTok{steps)}
+\NormalTok{mediansteps2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10395
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# histogram}
+\FunctionTok{ggplot}\NormalTok{(totalsteps, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ steps)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"pink"}\NormalTok{, }\AttributeTok{binwidth =} \DecValTok{1000}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Steps per Day"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Steps"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 8 rows containing non-finite values (stat_bin).
+\end{verbatim}
+
+\includegraphics{Project1_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+Compare the mean and median before and after NA removal
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meansteps}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10766.19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meansteps2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 9354.23
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediansteps}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10765
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mediansteps2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10395
+\end{verbatim}
+
+\hypertarget{are-there-differences-in-activity-patterns-between-weekdays-and-weekends}{%
+\subsection{Are there differences in activity patterns between weekdays
+and
+weekends?}\label{are-there-differences-in-activity-patterns-between-weekdays-and-weekends}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a new factor variable in the dataset with two levels --
+  ``weekday'' and ``weekend'' indicating whether a given date is a
+  weekday or weekend day.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#classify dates as weekdays or weekends}
+\NormalTok{activitydata[, }\StringTok{\textasciigrave{}}\AttributeTok{Day of Week}\StringTok{\textasciigrave{}}\SpecialCharTok{:}\ErrorTok{=} \FunctionTok{weekdays}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date)]}
+\NormalTok{activitydata[}\FunctionTok{grepl}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"Monday|Tuesday|Wednesday|Thursday|Friday"}\NormalTok{, }\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Day of Week}\StringTok{\textasciigrave{}}\NormalTok{), }\StringTok{"weekday or weekend"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"weekday"}
+\NormalTok{activitydata[}\FunctionTok{grepl}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"Saturday|Sunday"}\NormalTok{, }\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Day of Week}\StringTok{\textasciigrave{}}\NormalTok{), }\StringTok{"weekday or weekend"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"weekend"}
+\NormalTok{activitydata[, }\StringTok{\textasciigrave{}}\AttributeTok{weekday or weekend}\StringTok{\textasciigrave{}} \SpecialCharTok{:}\ErrorTok{=} \FunctionTok{as.factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{weekday or weekend}\StringTok{\textasciigrave{}}\NormalTok{)]}
+\FunctionTok{head}\NormalTok{(activitydata, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     steps       date interval Day of Week weekday or weekend
+##  1:     0 2012-10-01        0      Monday            weekday
+##  2:     0 2012-10-01        5      Monday            weekday
+##  3:     0 2012-10-01       10      Monday            weekday
+##  4:     0 2012-10-01       15      Monday            weekday
+##  5:     0 2012-10-01       20      Monday            weekday
+##  6:     0 2012-10-01       25      Monday            weekday
+##  7:     0 2012-10-01       30      Monday            weekday
+##  8:     0 2012-10-01       35      Monday            weekday
+##  9:     0 2012-10-01       40      Monday            weekday
+## 10:     0 2012-10-01       45      Monday            weekday
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Make a panel plot containing a time series plot (i.e.~𝚝𝚢𝚙𝚎 = ``𝚕'') of
+  the 5-minute interval (x-axis) and the average number of steps taken,
+  averaged across all weekday days or weekend days (y-axis). See the
+  README file in the GitHub repository to see an example of what this
+  plot should look like using simulated data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{activitydata[}\FunctionTok{is.na}\NormalTok{(steps), }\StringTok{"steps"}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ activitydata[, }\FunctionTok{c}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(.SD, median, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)), .SDcols }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"steps"}\NormalTok{)]}
+\NormalTok{IntervalDT }\OtherTok{\textless{}{-}}\NormalTok{ activitydata[, }\FunctionTok{c}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(.SD, mean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)), .SDcols }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"steps"}\NormalTok{), by }\OtherTok{=}\NormalTok{ .(interval, }\StringTok{\textasciigrave{}}\AttributeTok{weekday or weekend}\StringTok{\textasciigrave{}}\NormalTok{)]}
+
+\FunctionTok{ggplot}\NormalTok{(IntervalDT , }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ interval , }\AttributeTok{y =}\NormalTok{ steps, }\AttributeTok{color=}\StringTok{\textasciigrave{}}\AttributeTok{weekday or weekend}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Average Steps per Day"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Interval"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Steps"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{weekday or weekend}\StringTok{\textasciigrave{}}\NormalTok{ , }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project1_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\end{document}
