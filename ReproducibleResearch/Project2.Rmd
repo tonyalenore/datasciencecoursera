@@ -1,0 +1,99 @@
+---
+title: "Analysis of the Impacts of Storms in the US"
+author: "Tonya MacDonald"
+date: "2/20/2021"
+output:
+  html_document: default
+---
+
+
+## 1: Synopsis
+The basic goal of this assignment is to explore the NOAA Storm Database and answer some basic questions about severe weather events in the United States between 1950 and 2011.
+
+## 2: Data Processing
+
+Load packages, download the file, and load data into variable
+```{r, warning=FALSE,message=FALSE,error=FALSE}
+library("data.table")
+library("ggplot2")
+library("dplyr")
+library("gridExtra")
+
+fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+
+download.file(fileUrl, destfile = paste0(getwd(), '/repdata%2Fdata%2FStormData.csv.bz2'), method = "curl")
+
+csv <- read.csv("repdata%2Fdata%2FStormData.csv.bz2")
+
+storm <- as.data.table(csv)
+
+```
+
+```{r}
+# summarize by event type
+fatalities <- arrange(aggregate(FATALITIES ~ EVTYPE, data=storm, sum),desc(FATALITIES),EVTYPE)[1:10,]
+injuries <- arrange(aggregate(INJURIES ~ EVTYPE, data=storm, sum),desc(INJURIES),EVTYPE)[1:10,]
+```
+
+## 3: Results
+
+##### Question 1: Across the United States, which types of events are most harmful with respect to population health?
+
+```{r}
+# create chart of top 10 fatalities by event type
+fatalitychart <- ggplot(fatalities, aes(x = reorder(EVTYPE, -FATALITIES), y = FATALITIES)) 
+fatalitychart = fatalitychart + geom_bar(stat = "identity", fill = "pink", width = NULL)
+fatalitychart = fatalitychart + ylab("Fatalities") 
+fatalitychart = fatalitychart + xlab("Event Type") 
+fatalitychart = fatalitychart + theme(axis.text.x = element_text(angle=45, hjust=1))
+fatalitychart = fatalitychart + ggtitle("Top Weather Related Fatalities")
+```
+
+```{r}
+# create chart of top 10 fatalities by event type
+injurychart <- ggplot(injuries, aes(x = reorder(EVTYPE, -INJURIES), y = INJURIES)) 
+injurychart = injurychart + geom_bar(stat = "identity", fill = "blue", width = NULL)
+injurychart = injurychart + ylab("Injuries") 
+injurychart = injurychart + xlab("Event Type") 
+injurychart = injurychart + theme(axis.text.x = element_text(angle=45, hjust=1))
+injurychart = injurychart + ggtitle("Top Weather Related Injuries")
+```
+
+```{r}
+# arrange charts side by side
+grid.arrange(fatalitychart, injurychart, ncol=2, nrow=1)
+```
+
+
+##### Question 2: Across the United States, which types of events have the greatest economic consequences?
+
+```{r}
+# summarize the top 10 property and crop damage 
+propdamage <- arrange(aggregate(PROPDMG ~ EVTYPE, data=storm, sum),desc(PROPDMG),EVTYPE)[1:10,]
+cropdamage <- arrange(aggregate(CROPDMG ~ EVTYPE, data=storm, sum),desc(CROPDMG),EVTYPE)[1:10,]
+```
+
+```{r}
+# create chart of top 10 causes of property damage by event type
+propdmgchart <- ggplot(propdamage, aes(x = reorder(EVTYPE, -PROPDMG), y = PROPDMG)) 
+propdmgchart = propdmgchart+ geom_bar(stat = "identity", fill = "green", width = NULL)
+propdmgchart = propdmgchart+ ylab("Property Damage") 
+propdmgchart = propdmgchart+ xlab("Event Type") 
+propdmgchart = propdmgchart+ theme(axis.text.x = element_text(angle=45, hjust=1))
+propdmgchart = propdmgchart+ ggtitle("Top Weather Related Property Damage Source")
+```
+
+```{r}
+# create chart of top 10 causes of crop damage by event type
+cropdmgchart <- ggplot(cropdamage, aes(x = reorder(EVTYPE, -CROPDMG), y = CROPDMG)) 
+cropdmgchart = cropdmgchart + geom_bar(stat = "identity", fill = "purple", width = NULL)
+cropdmgchart = cropdmgchart + ylab("Crop Damage") 
+cropdmgchart = cropdmgchart + xlab("Event Type") 
+cropdmgchart = cropdmgchart + theme(axis.text.x = element_text(angle=45, hjust=1))
+cropdmgchart = cropdmgchart + ggtitle("Top Weather Related Crop Damage Source")
+```
+
+```{r}
+# arrange charts side by side
+grid.arrange(propdmgchart, cropdmgchart, ncol=2, nrow=1)
+```
