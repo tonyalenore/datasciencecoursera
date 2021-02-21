@@ -1,0 +1,87 @@
+---
+title: "Regression Models Project"
+author: "Tonya MacDonald"
+date: "2/21/2021"
+output: html_document
+---
+
+## Overview
+
+This assignment is to analyze a dataset to see what factors have the largest impact on mile per gallon, in paticular to see if the following questions can be answered:
+
+1. “Is an automatic or manual transmission better for MPG”
+2. "Quantify the MPG difference between automatic and manual transmissions" 
+
+### Data Prep
+
+```{r, warning=FALSE,message=FALSE,error=FALSE}
+# load packaes and dataset
+library(ggplot2)
+data(mtcars)
+```
+
+```{r mtcars}
+# convert to factors
+mtcars$vs <- factor(mtcars$vs)
+mtcars$gear <- factor(mtcars$gear)
+mtcars$carb <- factor(mtcars$carb)
+mtcars$transmissiontype <- factor(mtcars$am, labels=c("Automatic","Manual"))
+head(mtcars)
+```
+
+### Data Analysis
+
+```{r}
+# create a boxplot of tranmission type vs mpg
+boxplot(mpg ~ transmissiontype, data = mtcars, ylab = "MPG", xlab = "Transmission Type")
+```
+This boxplot shows a clear indication that manual transmissions have higher mpg than automatic.  
+
+We will review the data to see if there are other factors that impact mpg.
+
+
+```{r}
+# create a linear regression of mpg vs transmission type 
+linreg <- lm(mpg ~ factor(am), data=mtcars)
+summary(linreg)
+```
+
+Here we can see that the p-value is very low (p-value: 0.000285), so transmission type has a big effect on mpg.  
+
+However, the R-squared value is 0.3598, so this means that about 36% of the mpg variance is from transmission type.
+
+
+```{r}
+# see what other factors impact the mpg variance
+mpgvar <- aov(mpg ~ ., data = mtcars)
+summary(mpgvar)
+```
+
+Here we see that number of cylinders (cyl), weight (wt), and displacement (disp) have low p-values and we should take a closer look. 
+
+
+```{r}
+# create a linear regression of mpg vs number of cylinders, weight, displacement, and transmission type 
+multilinreg <- lm(mpg ~ cyl + disp + wt + am, data = mtcars)
+summary(multilinreg)
+```
+
+Including the additional variables accounts for about 83% of the variance now (R-squared = 0.8327)
+
+```{r}
+par(mfrow = c(2,2))
+plot(multilinreg)
+```
+
+### Summary
+
+Looking at only transmission type, the average mpg The average mpg by transmission type is about 17 mpg for automatic transmissions, and 24 mpg for manual.  
+
+Transmission type was a large factor for mpg, however not the only one. Looking at the comparison of number of cylinders, weight, displacement, and transmission type you can see that they all have an impact on mpg. 
+
+```{r}
+aggregate(mtcars$mpg,by=list(mtcars$transmissiontype),FUN=mean)
+```
+
+
+
