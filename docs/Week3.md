@@ -8,6 +8,16 @@ Slide With Plot
 ========================================================
 
 
+```r
+library(plotly)
+```
+
+
+```r
+fig <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length)
+```
+
+
 
 
 ```

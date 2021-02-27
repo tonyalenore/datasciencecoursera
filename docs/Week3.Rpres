@@ -7,16 +7,15 @@ autosize: true
 Slide With Plot
 ========================================================
 
-```{r, warning=FALSE,message=FALSE,error=FALSE}
+```{r}
 library(plotly)
+```
 
-fig <- plot_ly(
-  x = c("giraffes", "orangutans", "monkeys"),
-  y = c(20, 14, 23),
-  name = "SF Zoo",
-  type = "bar"
-)
+```{r}
+fig <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length)
+```
 
+```{r}
 fig
 ```
 
