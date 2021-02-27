@@ -1,0 +1,21 @@
+---
+title: "Developing Data Products - Week 3 Project"
+author: "Tonya MacDonald"
+date: "2/27/2021"
+output: html_document
+---
+
+```{r, warning=FALSE,message=FALSE,error=FALSE}
+library(plotly)
+
+fig <- plot_ly(
+  x = c("giraffes", "orangutans", "monkeys"),
+  y = c(20, 14, 23),
+  name = "SF Zoo",
+  type = "bar"
+)
+
+fig
+```
+
+
