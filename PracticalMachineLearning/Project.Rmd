@@ -1,0 +1,88 @@
+---
+title: "Week4"
+author: "Tonya MacDonald"
+date: "2/24/2021"
+output: html_document
+---
+
+# Overview
+
+One thing that people regularly do is quantify how  much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants.
+
+## Process
+
+I completed the analysis for the assignment using a random forest algorithm.  The model can predict with over 99% accuracy with the 95% confidence interval of (0.9893, 0.9935). 
+
+```{r, warning=FALSE,message=FALSE,error=FALSE}
+library(caret)
+library(randomForest)
+library(e1071)
+```
+
+### Download data
+
+Download the data and do some cleanup
+```{r, warning=FALSE,message=FALSE,error=FALSE}
+trainurl <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+testurl <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+
+traindt <- read.csv(url(trainurl), na.strings=c("NA","#DIV/0!",""))
+testdt <- read.csv(url(testurl), na.strings=c("NA","#DIV/0!",""))
+
+traindt <- traindt[,colSums(is.na(traindt)) == 0]
+testdt <- testdt[,colSums(is.na(testdt)) == 0]
+
+#remove first 7 columns
+traindt <- traindt[,-c(1:7)]
+testdt <- testdt[,-c(1:7)]
+```
+
+### Partition data
+
+```{r}
+#split data into training and testing sets
+trainPartitions <- createDataPartition(traindt$classe, p = 0.6, list = FALSE)
+inTrain <- traindt[trainPartitions,]
+inTest <- traindt[-trainPartitions,]
+
+# create factors
+inTest$classe <- factor(inTest$classe)
+```
+
+### Create model and train with the training partition
+
+```{r}
+modelFilename <- "model.RData"
+if (!file.exists(modelFilename)){
+  model <- train(classe ~ .
+                , data = inTrain
+                , method = "rf" #random forest 
+                , metric = "Accuracy" 
+                , preProcess=c("center", "scale") 
+                , trControl=trainControl(method = "cv"
+                                        , number = 4
+                                        , p= 0.60
+                                        , allowParallel = TRUE 
+                                        )
+                )
+
+save(model, file = "model.RData")
+} else {
+  load(file = modelFilename, verbose = TRUE)
+}
+```
+
+### Check the model with the testing data partition
+
+```{r}
+# create predictions based off testing partition
+predictions <- predict(model, newdata=inTest)
+
+# display analysis
+confusionMatrix(predictions, inTest$classe)
+```
+
+```{r}
+# display the variable importance 
+varImp(model)
+```
