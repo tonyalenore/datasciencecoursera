@@ -18,8 +18,7 @@ fig <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length)
 ```
 
 
-
-
+```r
+#fig
 ```
-Error in loadNamespace(name) : there is no package called 'webshot'
-```
+
