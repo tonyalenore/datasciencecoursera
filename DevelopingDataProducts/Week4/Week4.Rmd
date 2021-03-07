@@ -1,0 +1,48 @@
+---
+title: "Developing Data Products Week 4 Project"
+author: "Tonya MacDonald"
+date: "March 7, 2021"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+
+This is an RStudio shiny application developed as a part of final project in the Developing Data Products course in Coursera Data Science Specialization track. The application summarizes student data. 
+
+## The Application includes the following:
+
+- Form of Input used: Checkbox
+- Reactive output displayed as a result of server logic - different columns will display based on if the checkbox is selected
+- The code can be found on github at: <https://github.com/tonyalenore/datasciencecoursera/DevelopingDataProducts>
+- The App can be found at: <https://tonyalenore.shinyapps.io/Week4/>
+
+## R Code for the Application
+
+```{r, echo = TRUE, warning=FALSE}
+library(shiny)
+columns <- c("Gender", "Major", "GPA")
+Students <- read.csv("Students.csv")
+ui <- fluidPage(
+  checkboxGroupInput("features", "Show:",columns),
+  tableOutput("data")
+)
+#titlePanel("Student Information")
+server <- function(input, output) {
+  output$data <- renderTable({
+    Students[, c("Student", input$features), drop = FALSE]
+  }, rownames = TRUE)
+}
+```
+
+## Table of Data 
+
+```{r, echo=FALSE, warning=FALSE}
+Students <- read.csv("Students.csv")
+Students
+```
+
+This is the table of data that was used for this application.

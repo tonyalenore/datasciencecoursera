@@ -1,0 +1,13 @@
+name: Week4
+title: Week4
+username:
+account: tonyalenore
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3749744
+bundleId: 4312638
+url: https://tonyalenore.shinyapps.io/Week4/
+when: 1615129726.56719
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: server.R|ui.R|Week4.Rmd
