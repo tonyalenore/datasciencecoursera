@@ -1,7 +1,7 @@
 ---
 title: "Data Science Capstone Milestone Report"
 author: "Tonya MacDonald"
-date: "3/18/2021"
+date: "3/19/2021"
 output:
   html_document:
     toc: true
@@ -13,6 +13,8 @@ output:
 # Introduction
 
 This report is to demonstrate the statistical properties of the text prediction dataset. The report will use exploratory data analysis to describe the features of the training data and then will summarize the plan to create the model in the upcoming project. 
+
+> This report does not display the R code. However, it can be found in [GitHub ](https://github.com/tonyalenore/datasciencecoursera/blob/master/Capstone/MilestoneReport.Rmd).
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -81,7 +83,7 @@ wpl <- lapply(list(blogs, news, twitter), function(x) stri_count_words(x))
 # summarize words per line
 wplSummary = sapply(list(blogs, news, twitter),
                     function(x) summary(stri_count_words(x))[c('Min.', 'Mean', 'Max.')])
-rownames(wplSummary) = c('Min Words / Line', 'Avg Words / Line', 'Max Words / Line')
+rownames(wplSummary) = c('Min WPL', 'Avg WPL', 'Max WPL')
 
 summary <- data.frame(
   File = c("en_US.blogs.txt", "en_US.news.txt", "en_US.twitter.txt"),
@@ -91,7 +93,15 @@ summary <- data.frame(
   Words = numWords,
   t(rbind(round(wplSummary)))
 )
+```
 
+# Data Analysis
+
+## Summary of Text
+
+This table shows a basic summary of the text including file sizes, line count, character count, and words per line for each text source. It also includes some basic statistics on words per line. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 # display in a table
 kable(summary,
       row.names = FALSE,
@@ -100,9 +110,11 @@ kable(summary,
 
 ```
 
-# Histograms
+Reviewing the table, we can see that the average number of words per line is relatively small, but the news and blogs text have a larger max of words per line. The lower max words per line from Twitter text is expected due to the character limit per tweet. 
 
-this is the histogram section
+## Histograms
+
+The histograms of words per line support the data we saw in the summary table. Most of the words per line are relatively low, with news an blogs having a some longer lines making the histograms skewed right.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -129,7 +141,9 @@ this is the histogram section
 
 ```
 
-## testing h2
+## Word Frequency
+
+Using a sample of the data for demonstrative purposes, the most frequent words are shown below.  The plan for the project is to consider not only the frequency of single words, but also n-grams (groups of words commonly found together). 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -161,10 +175,6 @@ sampleDataWords <- sum(stri_count_words(sampleData))
 
 # remove variables no longer needed to free up memory
 rm(blogs, news, twitter, sampleBlogs, sampleNews, sampleTwitter)
-
-```
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 buildCorpus <- function (dataSet) {
     docs <- VCorpus(VectorSource(dataSet))
@@ -198,10 +208,6 @@ close(con)
 
 rm(sampleData)
 
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
 tdm <- TermDocumentMatrix(corpus)
 freq <- sort(rowSums(as.matrix(tdm)), decreasing = TRUE)
 wordFreq <- data.frame(word = names(freq), freq = freq)
@@ -223,11 +229,13 @@ rm(tdm, freq, wordFreq, g)
 
 ```
 
+# Summary
 
+The final capstone project is to build a prediction model that will be deployed as a Shiny app. The app will allow a word or phrase to be input and output a prediction of the next word.
 
+The model will be developed using an n-gram model with a word frequency lookup similar to that performed in the exploratory data analysis section of this report. One possible strategy may be to construct the model to first look for the unigram that would follow from the entered text. Once a full term is entered followed by a space, find the most common bigram model and so on.
 
+Another possible strategy may be to predict the next word using the trigram model. If no matching trigram can be found, then the algorithm would check the bigram model. If still not found, use the unigram model.
 
-
-
-
+The final strategy will be based on the one that provides the best accuracy.
 
