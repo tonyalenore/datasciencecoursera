@@ -33,7 +33,7 @@ rm(con, blogsFileName, newsFileName, twitterFileName)
 set.seed(8)
 
 # assign sample size
-sampleSize = 0.05
+sampleSize = 0.1
 
 # sample all three data sets
 sampleBlogs <- sample(blogs, length(blogs) * sampleSize, replace = FALSE)
@@ -74,7 +74,7 @@ rm(removeOutliers)
 # ------------------------------------------------------------------------------
 
 # load bad words file
-badWordsFile <- "data/bad-words.txt"
+badWordsFile <- "TextPrediction/data/bad-words.txt"
 
 con <- file(badWordsFile, open = "r")
 profanity <- readLines(con, encoding = "UTF-8", skipNul = TRUE)
@@ -202,6 +202,12 @@ startWord <- word(texts(corpus), 1)  # get first word for each document
 startWord <- tokenFrequency2(startWord, n = 1, NULL)  # determine most popular start words
 startWordPrediction <- startWord$token[1:3]  # select top 3 words to start word prediction app
 saveRDS(startWordPrediction, "data/start-word-prediction.RData")
+
+print('unigram')
+# unigram
+unigram <- tokenFrequency(corpus, n = 1, NULL)
+saveRDS(unigram, "data/unigram.RData")
+remove(unigram)
 
 print('bigram')
 # bigram
